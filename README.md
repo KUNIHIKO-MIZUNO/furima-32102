@@ -1,24 +1,61 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users テーブル
+| Column     | Type   | Options     |
+| ---------- | ------ | ----------- |
+| name       | string | null: false |
+| kana       | string | null: false |
+| nickname   | string | null: false |
+| birthday   | string | null: false |
+| email      | string | null: false |
+| password   | string | null: false |
 
-Things you may want to cover:
+### Association
+- has_many :items
+- has_many :purchases
 
-* Ruby version
+## items テーブル
+| Column            | Type       | Options           |
+| ----------        | ---------- | ------------------|
+| name              | string     | null: false       |
+| price             | string     | null: false       |
+| explain           | text       | null: false       |
+| category          | text       | null: false       |
+| condition         | text       | null: false       |
+| delivery cost     | text       | null: false       |
+| delivery area     | text       | null: false       |
+| delivery how long | text       | null: false       |
+| comment           | text       | null: false       |
+| user              | references | foreign_key: true |
 
-* System dependencies
+### Association
+- belongs_to :user
+- has_one：purchases
+- has_one：shipping address
 
-* Configuration
+## purchases テーブル
+| Column  | Type       | Options           |
+| ------- | ---------- | ------------------|    
+| when    | string     | null: false       |
+| what    | string     | null: false       |
+| user    | references | foreign_key: true |
+| item    | references | foreign_key: true |
 
-* Database creation
+### Association
+- belongs_to :user
+- belongs_to :items
 
-* Database initialization
+## shipping address テーブル
+| Column       | Type       | Options           |
+| -------      | ---------- | ----------------- |
+| post         | string     | null: false       |
+| prefecture   | string     | null: false       |
+| municipality | string     | null: false       | 
+| block number | string     | null: false       |
+| phone number | string     | null: false       |
+| user         | references | foreign_key: true |
+| item         | references | foreign_key: true |
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### Association
+- belongs_to :user
+- belongs_to :items
