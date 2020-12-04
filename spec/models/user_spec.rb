@@ -89,7 +89,7 @@ describe User do
         expect(@user.errors.full_messages).to include('Password Include both letters and numbers')
       end
       it 'passwordが数字のみでは登録できない' do
-        @user.password = "111111"
+        @user.password = 111111
         @user.valid?
         expect(@user.errors.full_messages).to include('Password Include both letters and numbers')
       end
