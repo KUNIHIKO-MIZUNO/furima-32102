@@ -103,13 +103,13 @@ describe User do
         @user.valid?
         expect(@user.errors.full_messages).to include('First name Full-width characters')
       end
-      it 'last_name_kanaが全角でなければ登録できない' do
-        @user.last_name_kana = "aaaaaa"
+      it 'last_name_kanaが全角カタカナでなければ登録できない' do
+        @user.last_name_kana = "ｱｱｱ"
         @user.valid?
         expect(@user.errors.full_messages).to include('Last name kana Full-width characters')
       end
-      it 'first_name_kanaが全角でなければ登録できない' do
-        @user.first_name_kana = "aaaaaa"
+      it 'first_name_kanaが全角カタカナでなければ登録できない' do
+        @user.first_name_kana = "ｱｱｱ"
         @user.valid?
         expect(@user.errors.full_messages).to include('First name kana Full-width characters')
       end
