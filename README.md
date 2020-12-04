@@ -32,7 +32,7 @@
 
 ### Association
 - belongs_to :user
-- has_one：purchases
+- has_one ：purchases
 
 ## purchases テーブル
 | Column  | Type       | Options           |
