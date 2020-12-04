@@ -62,6 +62,11 @@ describe User do
         another_user.valid?
         expect(another_user.errors.full_messages).to include('Email has already been taken')
       end
+      it 'emailに@が含まれない場合登録できない' do
+        @user.email = 'aaa'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Email is invalid")
+      end
       it 'passwordが5文字以下であれば登録できない' do
         @user.password = '00000'
         @user.password_confirmation = '00000'
@@ -101,12 +106,12 @@ describe User do
       it 'last_name_kanaが全角でなければ登録できない' do
         @user.last_name_kana = "aaaaaa"
         @user.valid?
-        expect(@user.errors.full_messages).to include('Last name kana Full-width katakana characters')
+        expect(@user.errors.full_messages).to include('Last name kana Full-width characters')
       end
       it 'first_name_kanaが全角でなければ登録できない' do
         @user.first_name_kana = "aaaaaa"
         @user.valid?
-        expect(@user.errors.full_messages).to include('First name kana Full-width katakana characters')
+        expect(@user.errors.full_messages).to include('First name kana Full-width characters')
       end
     end
   end
