@@ -30,47 +30,47 @@ RSpec.describe Item, type: :model do
       it 'priceが空では登録できない' do
         @item.price = ''
         @item.valid?
-        expect(@item.errors.full_messages).to include('Price Price Out of setting range')
+        expect(@item.errors.full_messages).to include('Price Out of setting range')
       end
       it 'priceが¥9,999,999以上では登録できない' do
         @item.price =  10000000
         @item.valid?
-        expect(@item.errors.full_messages).to include('Price Price Out of setting range')
+        expect(@item.errors.full_messages).to include('Price Out of setting range')
       end
-      it 'priceが全角では登録できない' do
+      it 'priceが半角数字以外では登録できない' do
         @item.price = '１あ'
         @item.valid?
-        expect(@item.errors.full_messages).to include('Price Price Out of setting range')
+        expect(@item.errors.full_messages).to include('Price Half-width number')
       end
       it 'priceが¥300以下では登録できない' do
         @item.price = 299
         @item.valid?
-        expect(@item.errors.full_messages).to include('Price Price Out of setting range')
+        expect(@item.errors.full_messages).to include('Price Out of setting range')
       end
       it 'category_idが「---」では登録できない' do
         @item.category_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include('Category must be other than 1')
+        expect(@item.errors.full_messages).to include('Category Select')
       end
       it 'condition_idが「---」では登録できない' do
         @item.condition_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include('Condition must be other than 1')
+        expect(@item.errors.full_messages).to include('Condition Select')
       end
       it 'delivery_cost_idが「---」では登録できない' do
         @item.delivery_cost_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include('Delivery cost must be other than 1')
+        expect(@item.errors.full_messages).to include('Delivery cost Select')
       end
       it 'prefecture_idが「---」では登録できない' do
         @item.prefecture_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include('Prefecture must be other than 1')
+        expect(@item.errors.full_messages).to include('Prefecture Select')
       end
       it 'delivery_how_long_idが「---」では登録できない' do
         @item.delivery_how_long_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include('Delivery how long must be other than 1')
+        expect(@item.errors.full_messages).to include('Delivery how long Select')
       end
     end
   end
