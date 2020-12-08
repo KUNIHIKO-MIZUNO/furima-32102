@@ -20,19 +20,19 @@
 ## items テーブル
 | Column               | Type       | Options           |
 | -------------------- | ---------- | ------------------|
-| item name            | string     | null: false       |
+| item_name            | string     | null: false       |
 | price                | string     | null: false       |
 | explain              | text       | null: false       |
 | category_id          | integer    | null: false       |
 | condition_id         | integer    | null: false       |
-| delivery cost_id     | integer    | null: false       |
+| delivery_cost_id     | integer    | null: false       |
 | prefecture_id        | integer    | null: false       |
-| delivery how long_id | integer    | null: false       |
+| delivery_how_long_id | integer    | null: false       |
 | user                 | references | foreign_key: true |
 
 ### Association
 - belongs_to :user
-- has_one：purchases
+- has_one ：purchases
 
 ## purchases テーブル
 | Column  | Type       | Options           |
@@ -51,9 +51,9 @@
 | post          | string     | null: false       |
 | prefecture_id | integer    | null: false       |
 | municipality  | string     | null: false       | 
-| block number  | string     | null: false       |
+| block_number  | string     | null: false       |
 | building      | string     | null: false       |
-| phone number  | string     | null: false       |
+| phone_number  | string     | null: false       |
 | purchase      | references | foreign_key: true |
 
 ### Association
