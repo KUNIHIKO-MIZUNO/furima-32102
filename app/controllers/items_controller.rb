@@ -38,9 +38,11 @@ class ItemsController < ApplicationController
   def item_params
     params.require(:item).permit(:item_name, :price, :explain, :category_id, :condition_id, :delivery_cost_id, :prefecture_id, :delivery_how_long_id, :image).merge(user_id: current_user.id)
   end
+
   def set_prototype
     @item = Item.find(params[:id])
   end
+
   def move_to_index
     redirect_to root_path unless current_user == @item.user
   end
