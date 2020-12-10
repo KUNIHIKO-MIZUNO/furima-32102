@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_prototype, except: [:index, :new, :create]
+  before_action :move_to_index, only: [:edit, :update]
   def index
     @items = Item.includes(:user).order('created_at ASC')
   end
@@ -39,5 +40,8 @@ class ItemsController < ApplicationController
   end
   def set_prototype
     @item = Item.find(params[:id])
+  end
+  def move_to_index
+    redirect_to root_path unless current_user == @item.user
   end
 end
