@@ -1,29 +1,38 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user!, only: [:index, :create]
   def index
-    #その商品についてのインスタンスを作る記述
-    @item = Item.find(params[:item_id])  #(そのアイテムのid)→params[id]だとだめなので、その商品のidとわかるように工夫
+    # その商品についてのインスタンスを作る記述
+    @item = Item.find(params[:item_id]) # (そのアイテムのid)→params[id]だとだめなので、その商品のidとわかるように工夫
 
-    #これから作るformオブジェクトのインスタンスを作る記述
+    # これから作るformオブジェクトのインスタンスを作る記述
     @pay = Pay.new
-
+    redirect_to root_path if current_user.id == @item.user_id || !@item.order.nil?
   end
 
   def create
-    @pay = Pay.new(order_params)  
-     if @pay.valid?
+    @pay = Pay.new(order_params)
+    @item = Item.find(params[:item_id])
+    if @pay.valid?
+      pay_item
       @pay.save
-       redirect_to action: :index
-     else
-      @item = Item.find(params[:item_id])
-       render action: :index
-     end
+      redirect_to root_path
+    else
+      render action: :index
+    end
   end
-
 
   private
-  
+
   def order_params
-   params.require(:pay).permit(:item_id, :user_id, :postal_code, :prefecture, :city, :house_number, :building_name, :phone_number)
+    params.require(:pay).permit(:postal_code, :prefecture_id, :city, :house_number, :building_name, :phone_number).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
   end
 
+  def pay_item
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
+    Payjp::Charge.create(
+      amount: @item.price,
+      card: order_params[:token],
+      currency: 'jpy'
+    )
+  end
 end

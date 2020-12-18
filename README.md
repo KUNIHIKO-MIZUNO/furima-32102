@@ -32,7 +32,7 @@
 
 ### Association
 - belongs_to :user
-- has_one ：orders
+- has_one ：order
 
 ## orders テーブル
 | Column  | Type       | Options           |
@@ -42,8 +42,8 @@
 
 ### Association
 - belongs_to :user
-- belongs_to :items
-- has_one：addresses
+- belongs_to :item
+- has_one：address
 
 ## addresses テーブル
 | Column        | Type       | Options           |
@@ -57,4 +57,4 @@
 | order         | references | foreign_key: true |
 
 ### Association
-- belongs_to :orders
+- belongs_to :order
