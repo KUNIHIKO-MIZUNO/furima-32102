@@ -29,8 +29,8 @@ RSpec.describe Pay, type: :model do
       @pay.valid?
       expect(@pay.errors.full_messages).to include('Postal code is invalid. Include hyphen(-)')
     end
-    it 'prefectureを選択していないと保存できないこと' do
-      @pay.prefecture_id = 0
+    it 'prefecture_idが「---」だと保存できない' do
+      @pay.prefecture_id = 1
       @pay.valid?
       expect(@pay.errors.full_messages).to include('Prefecture Select')
     end
@@ -52,7 +52,12 @@ RSpec.describe Pay, type: :model do
     it 'phone_numberが全角数字だと保存できないこと' do
       @pay.phone_number = '２０００'
       @pay.valid?
-      expect(@pay.errors.full_messages).to include('Phone number is invalid. Input half-width characters.')
+      expect(@pay.errors.full_messages).to include('Phone number Input only number')
+    end
+    it 'phone_numberが12桁以上だと保存できないこと' do
+      @pay.phone_number = '222222222222'
+      @pay.valid?
+      expect(@pay.errors.full_messages).to include('Phone number is too long (maximum is 11 characters)')
     end
     it 'tokenが空では登録できないこと' do
       @pay.token = ''
